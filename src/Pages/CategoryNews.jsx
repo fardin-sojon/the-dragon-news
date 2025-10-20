@@ -1,4 +1,4 @@
-import { da } from "date-fns/locale";
+
 import React, { useEffect, useState } from "react";
 import { useLoaderData, useParams } from "react-router";
 import NewsCard from "../Components/NewsCard";
@@ -22,14 +22,11 @@ const CategoryNews = () => {
       setCategoryNews(filterNews);
     } else {
       const filterNews = data.filter((news) => news.category_id === Number(id));
-      console.log(filterNews);
+      // console.log(filterNews);
       setCategoryNews(filterNews);
     }
   }, [data, id]);
 
-  if (categoryNews.length === 0) {
-    return <h2 className="text-center font-bold bg-gray-100 rounded-md py-20">No News yets</h2>;
-  }
 
   return (
     <div>

@@ -2,9 +2,11 @@ import { useState } from "react";
 import { CiBookmark } from "react-icons/ci";
 import { FaStar, FaEye } from "react-icons/fa";
 import { IoShareSocialOutline } from "react-icons/io5";
+import { Link } from "react-router";
 
 const NewsCard = ({
   news: {
+    id,
     title,
     author,
     rating,
@@ -67,12 +69,12 @@ const NewsCard = ({
         {/* Details + See More (inline) */}
         <p className="text-gray-600 text-sm leading-relaxed">
           {seeMore ? details : details.slice(0, 180) + "... "}
-          <button
+          <Link to={`/news-details/${id}`}
             onClick={() => setSeeMore(!seeMore)}
             className="text-blue-600 font-medium hover:underline"
           >
             {seeMore ? "See Less" : "See More"}
-          </button>
+          </Link>
         </p>
 
         {/* Tags */}

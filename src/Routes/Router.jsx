@@ -7,6 +7,9 @@ import Career from "../Pages/Career";
 import Login from "../Pages/Login";
 import Register from "../Pages/Register";
 import AuthLayout from "../Layouts/AuthLayout";
+import NewsDetails from "../Pages/NewsDetails";
+import PrivateRoute from "../Provider/PrivateRoute";
+import Loading from "../Pages/Loading";
 
 const router = createBrowserRouter([
   {
@@ -14,23 +17,24 @@ const router = createBrowserRouter([
     element: <RootLayout></RootLayout>,
     children: [
       {
-        path:"",
-        Component: Home
+        path: "",
+        Component: Home,
       },
       {
-        path:"/about",
-        Component: About
+        path: "/about",
+        Component: About,
       },
       {
-        path:"/career",
-        Component: Career
+        path: "/career",
+        Component: Career,
       },
       {
-        path:"/category/:id",
-        loader: ()=> fetch("/news.json"),
-        Component: CategoryNews
+        path: "/category/:id",
+        loader: () => fetch("/news.json"),
+        Component: CategoryNews,
+        hydrateFallbackElement: <Loading></Loading>
       },
-    ]
+    ],
   },
   {
     path: "/auth",
@@ -38,17 +42,23 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/auth/login",
-        Component: Login
+        Component: Login,
       },
       {
         path: "/auth/register",
-        Component: Register
+        Component: Register,
       },
-    ]
+    ],
   },
   {
-    path: "/news",
-    element: <h3>News Layout</h3>,
+    path: "/news-details/:id",
+    loader: () => fetch("/news.json"),
+    hydrateFallbackElement: <Loading></Loading>,
+    element: (
+      <PrivateRoute>
+        <NewsDetails></NewsDetails>
+      </PrivateRoute>
+    ),
   },
   {
     path: "/*",
